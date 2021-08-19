@@ -1,0 +1,27 @@
+{
+  "name": "printer",
+  "version": "1.0.0",
+  "description": "Nodejs api used to print order and others",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mahandrisoa/printer.git"
+  },
+  "keywords": [
+    "print",
+    "escpos",
+    "ticket"
+  ],
+  "author": "Mahandrisoa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mahandrisoa/printer/issues"
+  },
+  "homepage": "https://github.com/Mahandrisoa/printer#readme",
+  "dependencies": {
+    "escpos": "^3.0.0-alpha.6"
+  }
+}
