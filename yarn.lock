@@ -95,6 +95,11 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
+escpos-network@^3.0.0-alpha.5:
+  version "3.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/escpos-network/-/escpos-network-3.0.0-alpha.5.tgz#1c8eff5f93b8c24d8503e3858b4b2a76937f0332"
+  integrity sha512-H/K0nOBqXJ7yKmhN6OJIJgEgnnRGY2/18YWlJOmwEljoaO5LJ2fc0ofM7n/zn6ijNrXBAiQWwr5OHGYccJ/VPg==
+
 escpos@^3.0.0-alpha.6:
   version "3.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/escpos/-/escpos-3.0.0-alpha.6.tgz#2044edc0c5000d34bf50ea77a59600581035ce05"

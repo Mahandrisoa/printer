@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Mahandrisoa/printer#readme",
   "dependencies": {
-    "escpos": "^3.0.0-alpha.6"
+    "escpos": "^3.0.0-alpha.6",
+    "escpos-network": "^3.0.0-alpha.5"
   }
 }
