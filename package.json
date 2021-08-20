@@ -4,7 +4,11 @@
   "description": "Nodejs api used to print order and others",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/bin/www",
+    "dev": "nodemon ./src/bin/www",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -22,7 +26,13 @@
   },
   "homepage": "https://github.com/Mahandrisoa/printer#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "escpos": "^3.0.0-alpha.6",
-    "escpos-network": "^3.0.0-alpha.5"
+    "escpos-network": "^3.0.0-alpha.5",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "http-errors": "^1.8.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12"
   }
 }
