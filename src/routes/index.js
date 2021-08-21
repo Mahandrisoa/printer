@@ -3,7 +3,7 @@ var nodemailer = require('nodemailer');
 const escpos = require('escpos');
 escpos.Network = require('escpos-network');
 
-const device = new escpos.Network('localhost', 9002);
+const device = new escpos.Network('localhost'); // Network('host', port)
 const options = { encoding: "GB18030" /* default */ }
 // encoding is optional
 const printer = new escpos.Printer(device, options);
@@ -40,14 +40,14 @@ router.post('/print', (req, res) => {
 var mail = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'kristianatenaizy@gmail.com',
-      pass: 'IAmKristiana'
+      user: 'name@mail.com', // TO BE CHANGED
+      pass: 'password' // TO BE CHANGED
     }
 });
   
 router.post('/csv', function(req, res) {
     var mailOptions = {
-        from: 'kristianatenaizy@gmail.com',
+        from: 'name@mail.com', // TO BE CHANGED
         to: req.body.email,
         subject: 'Table Manager Fichier',
         html: '<h1>Bonjour,</h1><p>Veuillez trouver ci-joint le fichier que vous avez exporté</p><br/><p>Cordialement,</p><p>Table Manager</p>',
