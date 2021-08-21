@@ -50,7 +50,7 @@ router.post('/csv', function(req, res) {
         from: 'kristianatenaizy@gmail.com',
         to: req.body.email,
         subject: 'Table Manager Fichier',
-        html: '<h1>Bonjour</h1>\n<p>Veuillez trouver ci-joint le fichier que vous avez exporté</p>',
+        html: '<h1>Bonjour,</h1><p>Veuillez trouver ci-joint le fichier que vous avez exporté</p><br/><p>Cordialement,</p><p>Table Manager</p>',
         attachments: [
             {   
                 filename: req.body.filename,
@@ -59,7 +59,7 @@ router.post('/csv', function(req, res) {
             }
         ]
     };
-    
+
     mail.sendMail(mailOptions, function(error, info){
         if (error) {
             res.json({
