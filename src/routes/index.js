@@ -1,8 +1,9 @@
 const express = require('express');
+var nodemailer = require('nodemailer');
 const escpos = require('escpos');
 escpos.Network = require('escpos-network');
 
-const networkDevice = new escpos.Network('localhost', 9002);
+const device = new escpos.Network('localhost', 9002);
 const options = { encoding: "GB18030" /* default */ }
 // encoding is optional
 const printer = new escpos.Printer(device, options);
@@ -14,15 +15,13 @@ router.post('/print', (req, res) => {
     const intcust = req.body.intcust;
     const paymentsMode = req.body.payments_mode;
 
-    networkDevice.open(function(error){
-        // example taken from https://github.com/song940/node-escpos
+    device.open(function(error){
         printer
             .font('a')
             .align('ct')
             .style('bu')
             .size(1, 1)
             .text('The quick brown fox jumps over the lazy dog')
-            .text('敏捷的棕色狐狸跳过懒狗')
             .barcode('1234567', 'EAN8')
             .table(["One", "Two", "Three"])
             .tableCustom(
@@ -31,26 +30,49 @@ router.post('/print', (req, res) => {
                     { text:"Center", align:"CENTER", width:0.33},
                     { text:"Right", align:"RIGHT", width:0.33 }
                 ],
-                { encoding: 'cp857', size: [1, 1] } // Optional
+                { encoding: 'cp857', size: [1, 1] }
             )
-            .qrimage('https://github.com/song940/node-escpos', function(err){
-                this.cut();
-                this.close();
-            });
     });
 
     res.send({ message: 'Print api' });
 });
 
+var mail = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'kristianatenaizy@gmail.com',
+      pass: 'IAmKristiana'
+    }
+});
+  
 router.post('/csv', function(req, res) {
-    const reservation = req.body.reservation;
-    const orders = req.body.orders;
-    const intcust = req.body.intcust;
-    const paymentsMode = req.body.payments_mode;
-
-    // csv format return
-
-    res.send({ message: 'Csv file' });
+    var mailOptions = {
+        from: 'kristianatenaizy@gmail.com',
+        to: req.body.email,
+        subject: 'Table Manager Fichier',
+        html: '<h1>Bonjour</h1>\n<p>Veuillez trouver ci-joint le fichier que vous avez exporté</p>',
+        attachments: [
+            {   
+                filename: req.body.filename,
+                content: req.body.csv,
+                contentType: 'application/csv'
+            }
+        ]
+    };
+    
+    mail.sendMail(mailOptions, function(error, info){
+        if (error) {
+            res.json({
+                "status": false,
+                "message": error
+            })
+        } else {
+            res.json({
+                "status": true,
+                "message": "Email sent : " + info.response
+            });
+        }
+    });
 });
 
 module.exports = router;
