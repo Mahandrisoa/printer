@@ -9,8 +9,7 @@ const options = { encoding: "GB18030" /* default */ }
 const printer = new escpos.Printer(device, options);
 const router = express.Router();
 const tableCustomEncoding =  {
-    encoding: 'cp857',
-    size: [1, 1]
+    size: [0.5, 0.5]
 };
 
 router.post('/print', (req, res) => {
@@ -23,32 +22,45 @@ router.post('/print', (req, res) => {
 
     device.open(function(error){
         printer
+            .encoding('utf8')
             .font('a')
             .align('ct')
-            .style('bu')
+            .style('b')
             .size(1, 1)
             .text(`${'Sri Ganesha'}`)
+            .size(0.5, 0.5)
+            .style('NORMAL')
             .text(`SIRET : \n ${'67 Avenue de la Valeuse, 14200 Hérouville Saint-Clair'} `)
+            .style('b')
+            .size(1, 1)
             .text('MERCI DE MANGER CHEZ NOUS')
+            .style('NORMAL')
+            .size(0.5, 0.5)
             .tableCustom([
-                {text: '2 x Fish Pakora 5,00€', align: 'LEFT', width: 0.5, style: 'B'},
-                {text: '10,00€', align: 'RIGHT', width: 0.5, style: 'B'}
+                {text: '2 x Fish Pakora 5,00€', align: 'LEFT', width: 0.5, style: 'NORMAL'},
+                {text: '10,00€TTC', align: 'RIGHT', width: 0.5, style: 'NORMAL'}
             ],tableCustomEncoding)
             .tableCustom([
-                {text: '2 x Fish Pakora 5,00€', align: 'LEFT', width: 0.5, style: 'B'},
-                {text: '10,00€', align: 'RIGHT', width: 0.5, style: 'B'}
+                {text: '2 x Fish Pakora 5,00€', align: 'LEFT', width: 0.5, style: 'NORMAL'},
+                {text: '10,00€TTC', align: 'RIGHT', width: 0.5, style: 'NORMAL'}
             ],tableCustomEncoding)
+            .style('b')
             .table(["TOTAL", "10,00€"])
+            .style('NORMAL')
             .text('Payments')
             .tableCustom([
-                {text: 'CB', align: 'LEFT', width: 0.5, style: 'B'},
-                {text: '45€', align: 'RIGHT', width: 0.5, style: 'B'}
+                {text: 'CB', align: 'LEFT', width: 0.5, style: 'NORMAL'},
+                {text: '45€', align: 'RIGHT', width: 0.5, style: 'NORMAL'}
             ],  tableCustomEncoding)
             .tableCustom([
-                {text: 'Ticket R', align: 'LEFT', width: 0.5, style: 'B'},
-                {text: '45€', align: 'RIGHT', width: 0.5, style: 'B'}
+                {text: 'Ticket R', align: 'LEFT', width: 0.5, style: 'NORMAL'},
+                {text: '45€', align: 'RIGHT', width: 0.5, style: 'NORMAL'}
             ],  tableCustomEncoding)
-            .table(["TOTAL", "90€"]);
+            .style('b')
+            .tableCustom([
+                { text: '', align: 'LEFT', width: 0.5, style: 'NORMAL'},
+                { text: 'TOTAL 90€', align: 'RIGHT', width: 0.5, style: 'B'}
+            ]);
     });
 
     res.send({ message: 'Print api' });
